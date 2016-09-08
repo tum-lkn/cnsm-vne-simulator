@@ -8,20 +8,6 @@ peewee_logger.addHandler(logging.StreamHandler())
 
 db = peewee.MySQLDatabase(None)
 
-# db = peewee.MySQLDatabase(
-#      'VneSimulation2',
-#      host='10.152.13.9',
-#      port=3306,
-#      user='kalmbach',
-#      passwd='7u8i9o0p'
-# )
-# db = peewee.MySQLDatabase(
-#  'VneSimulationDevelop',
-#  host='10.152.13.9',
-#  port=3306,
-#  user='kalmbach', #  passwd='7u8i9o0p' # ) # db = peewee.MySQLDatabase(
-#    'VneSimulationDevelop',
-#    host='localhost', #    port=3306, #    user='root', #    passwd='root' # )
 config = {
     'db_name': None,
     'host': None,
