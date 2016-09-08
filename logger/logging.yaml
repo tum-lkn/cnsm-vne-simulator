@@ -1,0 +1,111 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+    simple:
+        #format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        format: '[%(asctime)s-%(name)s-%(funcName)s-%(levelname)s] %(message)s'
+    verbose:
+        'format': '[%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d] %(message)s'
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: simple
+        stream: ext://sys.stdout
+
+    debug_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: DEBUG
+        formatter: simple
+        filename: debug.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    info_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: INFO
+        formatter: simple
+        filename: info.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+    error_file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: ERROR
+        formatter: simple
+        filename: errors.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+
+loggers:
+    #####################
+    # control
+    #####################
+    main.main:
+        level: INFO
+        handlers: [console,error_file_handler]
+        propagate: no
+
+    ####################
+    # scenario
+    ####################
+    scenario.simulation:
+        level: INFO
+        handlers: [console]
+        propagate: no
+
+    #####################
+    # Model and algorithms
+    #####################
+    algorithms:
+        level: INFO
+        handlers: [console,info_file_handler,debug_file_handler]
+        propagate: no
+
+    algorithms.dhpp.algos:
+        level: INFO
+
+    algorithms.hpp.model_mip_k:
+        level: INFO
+        propagate: no
+
+    algorithms.hpp.objectives:
+        level: INFO
+        propagate: no
+
+    #####################
+    # Database
+    #####################
+    input_output.data_interface:
+        level: DEBUG
+        handlers: [console,info_file_handler,debug_file_handler]
+        propagate: no
+
+    input_output.data_interface.dhpp.db_interface:
+        level: INFO
+        propagate: yes
+
+    input_output.data_interface.cpp.db_interface:
+        level: DEBUG
+        propagate: yes
+
+    input_output.data_interface.interface_factory:
+        level: INFO
+        propagate: yes
+
+    ####################
+    # Input generators
+    ####################
+    input_output.generator:
+        level: INFO
+        handlers: [console]
+
+
+root:
+    level: DEBUG
+    handlers: [console, info_file_handler, error_file_handler]
