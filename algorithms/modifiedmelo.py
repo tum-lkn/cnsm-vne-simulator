@@ -531,3 +531,5 @@ class MeloLB(MeloAlgorithm):
         expr = LinExpr()
         expr.addTerms(self.alpha, self.Vars["L_C_max"])
         expr.addTerms(self.beta, self.Vars["L_B_max"])
+
+        self.model.setObjective(expr, GRB.MINIMIZE)
